@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Warmth House Case Study | 逸承工作室</title>
+  <meta name="description" content="逸承工作室案例研究：Warmth House 品牌網站，從服務定位、頁面架構到公開上線的完整建置過程。">
+  <meta property="og:title" content="Warmth House Case Study | 逸承工作室">
+  <meta property="og:description" content="品牌網站案例研究：從內容架構、案例展示到預約動線的完整規劃。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://jiamokchi.github.io/warmth-house/kitchen_case.png">
+  <meta property="og:locale" content="zh_TW">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050816;
+      --panel: rgba(8, 16, 36, 0.8);
+      --panel-strong: rgba(9, 18, 40, 0.96);
+      --line: rgba(127, 209, 255, 0.16);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --text: #eef5ff;
+      --muted: #97abd0;
+      --accent: #79e7ff;
+      --accent-2: #7a7dff;
+      --max: 1180px;
+      --radius-xl: 30px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Noto Sans TC", sans-serif;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(121, 231, 255, 0.12), transparent 22%),
+        radial-gradient(circle at 85% 10%, rgba(122, 125, 255, 0.16), transparent 20%),
+        linear-gradient(180deg, #050816 0%, #071020 42%, #040712 100%);
+      min-height: 100vh;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 44px 44px;
+      opacity: 0.2;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.88), transparent 82%);
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    h1, h2, h3, p { margin: 0; }
+    .wrap { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(4, 8, 18, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(121,231,255,0.22), rgba(122,125,255,0.22));
+      border: 1px solid rgba(255,255,255,0.12);
+      font-family: "Orbitron", sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 10px 30px rgba(121,231,255,0.12);
+    }
+    .brand-text { font-weight: 800; line-height: 1.15; }
+    .brand-text small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-family: "Orbitron", sans-serif;
+    }
+    .menu { display: flex; align-items: center; gap: 22px; color: var(--muted); font-size: 14px; }
+    .menu a:hover { color: var(--text); }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .button:hover { transform: translateY(-1px); }
+    .button.primary {
+      color: #04111c;
+      background: linear-gradient(135deg, var(--accent), #baf6ff);
+      border-color: transparent;
+      box-shadow: 0 14px 30px rgba(121,231,255,0.2);
+      font-weight: 800;
+    }
+    .button.ghost { background: rgba(255,255,255,0.03); }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-family: "Orbitron", sans-serif;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+    .hero { padding: 72px 0 26px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent 36%);
+    }
+    .hero-copy { padding: 38px; display: flex; flex-direction: column; justify-content: space-between; min-height: 580px; }
+    .hero-title {
+      margin-top: 18px;
+      font-family: "Orbitron", "Noto Sans TC", sans-serif;
+      font-size: clamp(34px, 6vw, 68px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      max-width: 10ch;
+    }
+    .hero-title span { color: var(--accent); }
+    .hero-copy p {
+      margin-top: 22px;
+      color: #c8d4ea;
+      line-height: 1.9;
+      max-width: 620px;
+    }
+    .hero-actions, .tag-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(121,231,255,0.14);
+      background: rgba(121,231,255,0.08);
+      color: #d7f7ff;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: "Orbitron", sans-serif;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .metric {
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line-soft);
+    }
+    .metric strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 22px;
+      font-family: "Orbitron", sans-serif;
+    }
+    .visual-stack {
+      display: grid;
+      grid-template-rows: 1fr 0.72fr;
+      gap: 18px;
+      padding: 18px;
+      background:
+        radial-gradient(circle at top right, rgba(121,231,255,0.15), transparent 24%),
+        linear-gradient(180deg, rgba(7, 14, 30, 0.98), rgba(8, 16, 35, 0.98));
+    }
+    .shot {
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 260px;
+      background: var(--panel-strong);
+    }
+    .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .section { padding: 24px 0 0; }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+    .section-head h2 {
+      margin-top: 14px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    .section-head p { max-width: 560px; color: var(--muted); line-height: 1.8; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .card {
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .card h3 {
+      margin: 14px 0 12px;
+      font-size: 28px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    .card p { color: #c2d0e7; line-height: 1.85; }
+    .card ul { margin: 16px 0 0; padding-left: 18px; line-height: 1.9; color: #e1e9f8; }
+    .step-no {
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-family: "Orbitron", sans-serif;
+    }
+    .cta-panel {
+      padding: 34px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at top left, rgba(121,231,255,0.14), transparent 20%),
+        linear-gradient(180deg, rgba(11, 23, 41, 0.92), rgba(8, 18, 32, 0.96));
+      box-shadow: var(--shadow);
+    }
+    .footer { padding: 44px 0 64px; color: var(--muted); font-size: 14px; }
+    @media (max-width: 1080px) {
+      .hero-grid, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .visual-stack { grid-template-rows: auto; }
+    }
+    @media (max-width: 760px) {
+      .wrap { width: min(calc(100% - 28px), var(--max)); }
+      .menu { display: none; }
+      .hero-copy, .visual-stack, .card, .cta-panel { padding: 24px; }
+      .metrics { grid-template-columns: 1fr; }
+      .mini-grid { grid-template-columns: 1fr; }
+      .hero-copy { min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html">
+        <div class="brand-mark">YC</div>
+        <div class="brand-text">
+          逸承工作室
+          <small>Yi-Cheng Studio</small>
+        </div>
+      </a>
+      <div class="menu">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#case">Case</a>
+        <a href="index.html#vision">Vision</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <a class="button ghost" href="index.html">Back Home</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <article class="panel hero-copy">
+          <div>
+            <div class="eyebrow">Case Study</div>
+            <h1 class="hero-title">WARMTH HOUSE <span>LIVE BUILD</span></h1>
+            <p>這是一個已正式上線的品牌網站案例。目標不是只做一張首頁，而是建立完整的品牌入口，讓訪客能理解服務、看到案例、建立信任，最後進入預約流程。</p>
+            <div class="tag-row">
+              <span class="tag">brand site</span>
+              <span class="tag">multi-page</span>
+              <span class="tag">live online</span>
+            </div>
+            <div class="hero-actions">
+              <a class="button primary" href="https://jiamokchi.github.io/warmth-house/About.html" target="_blank" rel="noreferrer">Open Live Site</a>
+              <a class="button ghost" href="index.html">Back to Home</a>
+            </div>
+            <div class="metrics">
+              <div class="metric">
+                <strong>01</strong>
+                完整品牌頁面架構，不只單頁展示。
+              </div>
+              <div class="metric">
+                <strong>02</strong>
+                已公開上線，可直接作為作品證明。
+              </div>
+              <div class="metric">
+                <strong>03</strong>
+                可延伸更多案例、內容與預約模組。
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="panel visual-stack">
+          <div class="shot">
+            <img src="https://jiamokchi.github.io/warmth-house/kitchen_case.png" alt="Warmth House homepage preview">
+          </div>
+          <div class="mini-grid">
+            <div class="shot">
+              <img src="https://jiamokchi.github.io/warmth-house/wardrobe_case.png" alt="Warmth House wardrobe case">
+            </div>
+            <div class="card">
+              <div class="eyebrow">Snapshot</div>
+              <h3>從溫暖品牌感出發</h3>
+              <p>頁面語氣偏柔和信任感，但整體資訊結構相當完整，適合當作工作室現階段最有說服力的上線案例。</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Project Goal</div>
+            <h2>這個案例要解決什麼</h2>
+          </div>
+          <p>對服務型品牌來說，真正的問題不是沒有網站，而是網站無法幫忙建立信任、說明服務與承接詢問。</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="step-no">Problem 01</div>
+            <h3>品牌定位要清楚</h3>
+            <p>訪客進站後要快速理解這是什麼服務、適合誰，以及品牌的差異點在哪裡。</p>
+          </article>
+          <article class="card">
+            <div class="step-no">Problem 02</div>
+            <h3>服務需要被看懂</h3>
+            <p>只靠簡單介紹不夠，必須把服務場景、常見問題與動線整理完整。</p>
+          </article>
+          <article class="card">
+            <div class="step-no">Problem 03</div>
+            <h3>最後要能承接預約</h3>
+            <p>網站不只要美觀，更要把訪客帶到實際可行動的預約或詢問入口。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Build Scope</div>
+            <h2>實際做了哪些內容</h2>
+          </div>
+          <p>這個案例的價值在於，它不是只有畫面，而是把品牌網站該有的骨架一起搭起來。</p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>頁面架構</h3>
+            <ul>
+              <li>首頁主視覺與品牌定位</li>
+              <li>服務項目整理</li>
+              <li>案例列表與案例細節</li>
+              <li>FAQ 與品牌故事</li>
+              <li>預約與聯絡流程</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>技術與部署</h3>
+            <ul>
+              <li>Static HTML</li>
+              <li>Tailwind CSS CDN</li>
+              <li>GitHub Pages 部署</li>
+              <li>可延伸管理與資料流程</li>
+              <li>支援後續內容增加</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Approach</div>
+            <h2>這個案例對逸承工作室代表什麼</h2>
+          </div>
+          <p>它是現階段最好的能力證明，因為它已經從概念、內容、頁面到部署形成完整鏈條。</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="step-no">Value 01</div>
+            <h3>能做完整官網</h3>
+            <p>代表不是只會切一張首頁，而是能處理多頁結構與品牌訊息配置。</p>
+          </article>
+          <article class="card">
+            <div class="step-no">Value 02</div>
+            <h3>能讓內容可被理解</h3>
+            <p>服務型網站最難的是把抽象服務講清楚，這個案例已經做到一部分。</p>
+          </article>
+          <article class="card">
+            <div class="step-no">Value 03</div>
+            <h3>能正式上線</h3>
+            <p>從工作區到 GitHub Pages 的上線能力已驗證，這對新工作室非常重要。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <article class="cta-panel">
+          <div class="eyebrow">Next Move</div>
+          <h2 style="margin-top: 16px; font-size: clamp(28px, 4vw, 46px); line-height: 1.05; letter-spacing: -0.04em;">下一步要把這種完成度，從案例延伸到你自己的工作室官網</h2>
+          <p style="margin-top: 18px; color: #c8d4ea; line-height: 1.9; max-width: 720px;">這個案例頁建立之後，網站就不再只有酷首頁，而是開始擁有真正的信任內容。接下來最值得做的是正式 `Services` 頁與真實 `Contact` 入口。</p>
+          <div class="hero-actions">
+            <a class="button primary" href="index.html#contact">Go Contact</a>
+            <a class="button ghost" href="index.html">Back Home</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">Yi-Cheng Studio / Warmth House case study</div>
+  </footer>
+</body>
+</html>
