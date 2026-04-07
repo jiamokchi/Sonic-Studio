@@ -402,12 +402,16 @@
 
     .scanner-target {
       position: absolute;
-      width: 18px;
-      height: 18px;
+      width: 22px;
+      height: 22px;
       border-radius: 999px;
       border: 1px solid rgba(121, 231, 255, 0.45);
       background: rgba(121, 231, 255, 0.12);
       box-shadow: 0 0 18px rgba(121, 231, 255, 0.18);
+      cursor: pointer;
+      pointer-events: auto;
+      z-index: 5;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     }
 
     .scanner-target::before,
@@ -421,31 +425,93 @@
       left: 50%;
       top: -10px;
       width: 1px;
-      height: 38px;
+      height: 44px;
       transform: translateX(-50%);
     }
 
     .scanner-target::after {
       top: 50%;
       left: -10px;
-      width: 38px;
+      width: 44px;
       height: 1px;
       transform: translateY(-50%);
     }
 
     .scanner-target.a {
-      top: 24%;
-      left: 68%;
+      top: 20%;
+      left: 67%;
     }
 
     .scanner-target.b {
-      top: 58%;
-      left: 28%;
+      top: 55%;
+      left: 25%;
     }
 
     .scanner-target.c {
       top: 70%;
-      left: 74%;
+      left: 73%;
+    }
+
+    .scanner-target.d {
+      top: 38%;
+      left: 48%;
+    }
+
+    .scanner-target:hover,
+    .scanner-target.is-active {
+      transform: scale(1.16);
+      border-color: rgba(121, 231, 255, 0.95);
+      background: rgba(121, 231, 255, 0.22);
+      box-shadow: 0 0 26px rgba(121, 231, 255, 0.34);
+    }
+
+    .scanner-target-label {
+      position: absolute;
+      top: 50%;
+      left: calc(100% + 12px);
+      transform: translateY(-50%);
+      white-space: nowrap;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(121, 231, 255, 0.18);
+      background: rgba(4, 10, 20, 0.82);
+      color: #ddf8ff;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: "Orbitron", sans-serif;
+      opacity: 0;
+      transform-origin: left center;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .scanner-target:hover .scanner-target-label,
+    .scanner-target.is-active .scanner-target-label {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    .scanner-target-label.left {
+      left: auto;
+      right: calc(100% + 12px);
+      transform-origin: right center;
+    }
+
+    .scanner-target-label.bottom {
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .scanner-target:hover .scanner-target-label.bottom,
+    .scanner-target.is-active .scanner-target-label.bottom {
+      transform: translateX(-50%);
+    }
+
+    .scanner-target-label.left,
+    .scanner-target-label.bottom {
+      opacity: 0;
     }
 
     .scanner-labels {
@@ -510,6 +576,14 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       font-family: "Orbitron", sans-serif;
+    }
+
+    .scanner-guide {
+      margin-top: 12px;
+      color: #9fc4de;
+      font-size: 11px;
+      line-height: 1.7;
+      letter-spacing: 0.04em;
     }
 
     .scanner-row {
@@ -953,9 +1027,18 @@
                 <div class="scanner-ring three"></div>
                 <div class="scanner-crosshair"></div>
                 <div class="scan-beam"></div>
-                <div class="scanner-target a"></div>
-                <div class="scanner-target b"></div>
-                <div class="scanner-target c"></div>
+                <button class="scanner-target a" data-target-section="services" data-target-name="Services" aria-label="Go to Services">
+                  <span class="scanner-target-label">Services</span>
+                </button>
+                <button class="scanner-target b" data-target-section="case" data-target-name="Case" aria-label="Go to Case">
+                  <span class="scanner-target-label left">Case</span>
+                </button>
+                <button class="scanner-target c" data-target-section="contact" data-target-name="Contact" aria-label="Go to Contact">
+                  <span class="scanner-target-label left">Contact</span>
+                </button>
+                <button class="scanner-target d" data-target-section="vision" data-target-name="Vision" aria-label="Go to Vision">
+                  <span class="scanner-target-label bottom">Vision</span>
+                </button>
               </div>
               <div class="frame-grid"></div>
               <div class="frame-orb one"></div>
@@ -970,6 +1053,7 @@
                 <div class="scanner-row"><span>signal</span><span>online</span></div>
                 <div class="scanner-row"><span>focus</span><span>brand / ui</span></div>
                 <div class="scanner-row"><span>status</span><span>tracking</span></div>
+                <div class="scanner-guide">click target nodes to jump between sections</div>
               </div>
               <div class="frame-ui">
                 <div class="hud-row">
@@ -1239,10 +1323,11 @@
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
   <script src="https://unpkg.com/@rive-app/canvas"></script>
   <script>
     if (window.gsap) {
-      gsap.registerPlugin(ScrollTrigger);
+      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
       gsap.from(".nav", {
         y: -24,
@@ -1413,6 +1498,48 @@
         heroVisual.addEventListener("mouseleave", () => r.pause());
       }
     }
+
+    document.querySelectorAll(".scanner-target").forEach((target) => {
+      const sectionId = target.dataset.targetSection;
+      const sectionName = target.dataset.targetName;
+      const panelRows = document.querySelectorAll(".scanner-panel .scanner-row span:last-child");
+
+      target.addEventListener("mouseenter", () => {
+        document.querySelectorAll(".scanner-target").forEach((item) => item.classList.remove("is-active"));
+        target.classList.add("is-active");
+        if (panelRows[1]) panelRows[1].textContent = sectionName.toLowerCase();
+        if (panelRows[2]) panelRows[2].textContent = "locked";
+      });
+
+      target.addEventListener("mouseleave", () => {
+        target.classList.remove("is-active");
+        if (panelRows[1]) panelRows[1].textContent = "brand / ui";
+        if (panelRows[2]) panelRows[2].textContent = "tracking";
+      });
+
+      target.addEventListener("click", () => {
+        const targetSection = document.getElementById(sectionId);
+        if (!targetSection) return;
+
+        document.querySelectorAll(".scanner-target").forEach((item) => item.classList.remove("is-active"));
+        target.classList.add("is-active");
+        if (panelRows[1]) panelRows[1].textContent = sectionName.toLowerCase();
+        if (panelRows[2]) panelRows[2].textContent = "jumping";
+
+        gsap.to(window, {
+          duration: 1.05,
+          scrollTo: { y: targetSection, offsetY: 84 },
+          ease: "power3.inOut",
+          onComplete: () => {
+            if (panelRows[2]) panelRows[2].textContent = "arrived";
+            setTimeout(() => {
+              if (panelRows[2]) panelRows[2].textContent = "tracking";
+              target.classList.remove("is-active");
+            }, 1000);
+          }
+        });
+      });
+    });
   </script>
 </body>
 </html>
