@@ -586,6 +586,40 @@
       letter-spacing: 0.04em;
     }
 
+    .scanner-panel-title {
+      margin: 14px 0 8px;
+      font-size: 18px;
+      line-height: 1.3;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .scanner-panel-copy {
+      margin: 0;
+      color: #c0d4eb;
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    .scanner-panel-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .scanner-panel-tags span {
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(121, 231, 255, 0.14);
+      background: rgba(121, 231, 255, 0.06);
+      color: #d7f7ff;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: "Orbitron", sans-serif;
+    }
+
     .scanner-row {
       display: flex;
       align-items: center;
@@ -1053,7 +1087,14 @@
                 <div class="scanner-row"><span>signal</span><span>online</span></div>
                 <div class="scanner-row"><span>focus</span><span>brand / ui</span></div>
                 <div class="scanner-row"><span>status</span><span>tracking</span></div>
-                <div class="scanner-guide">click target nodes to jump between sections</div>
+                <h3 class="scanner-panel-title" id="scanner-panel-title">Interactive overview</h3>
+                <p class="scanner-panel-copy" id="scanner-panel-copy">Hover or click target nodes to preview each section before jumping.</p>
+                <div class="scanner-panel-tags" id="scanner-panel-tags">
+                  <span>future ui</span>
+                  <span>navigation</span>
+                  <span>live scan</span>
+                </div>
+                <div class="scanner-guide" id="scanner-panel-guide">click target nodes to jump between sections</div>
               </div>
               <div class="frame-ui">
                 <div class="hud-row">
@@ -1499,22 +1540,79 @@
       }
     }
 
+    const scannerInfoMap = {
+      services: {
+        focus: "services",
+        title: "Service modules",
+        copy: "品牌網站、展示頁與可延伸模組，是目前最清楚也最容易被理解的三個方向。",
+        tags: ["brand site", "launch page", "future module"],
+        guide: "jump to services section"
+      },
+      case: {
+        focus: "case",
+        title: "Warmth House case",
+        copy: "已正式上線的真實案例，用來展示內容整合、頁面架構與公開部署能力。",
+        tags: ["live site", "multi-page", "case study"],
+        guide: "jump to featured case"
+      },
+      vision: {
+        focus: "vision",
+        title: "Platform vision",
+        copy: "網站會從工作室入口，逐步延伸到科技新知、遊戲內容與 3C 商業模組。",
+        tags: ["tech feed", "game zone", "3c commerce"],
+        guide: "jump to long-term vision"
+      },
+      contact: {
+        focus: "contact",
+        title: "Contact channel",
+        copy: "這裡會成為未來的詢問入口，承接合作需求、社群連結或表單模組。",
+        tags: ["cta", "inquiry", "next action"],
+        guide: "jump to contact section"
+      },
+      default: {
+        focus: "brand / ui",
+        title: "Interactive overview",
+        copy: "Hover or click target nodes to preview each section before jumping.",
+        tags: ["future ui", "navigation", "live scan"],
+        guide: "click target nodes to jump between sections"
+      }
+    };
+
+    const panelRows = document.querySelectorAll(".scanner-panel .scanner-row span:last-child");
+    const panelTitle = document.getElementById("scanner-panel-title");
+    const panelCopy = document.getElementById("scanner-panel-copy");
+    const panelTags = document.getElementById("scanner-panel-tags");
+    const panelGuide = document.getElementById("scanner-panel-guide");
+
+    function updateScannerPanel(key, statusText) {
+      const data = scannerInfoMap[key] || scannerInfoMap.default;
+      if (panelRows[1]) panelRows[1].textContent = data.focus;
+      if (panelRows[2] && statusText) panelRows[2].textContent = statusText;
+      if (panelTitle) panelTitle.textContent = data.title;
+      if (panelCopy) panelCopy.textContent = data.copy;
+      if (panelGuide) panelGuide.textContent = data.guide;
+      if (panelTags) {
+        panelTags.innerHTML = "";
+        data.tags.forEach((tag) => {
+          const item = document.createElement("span");
+          item.textContent = tag;
+          panelTags.appendChild(item);
+        });
+      }
+    }
+
     document.querySelectorAll(".scanner-target").forEach((target) => {
       const sectionId = target.dataset.targetSection;
-      const sectionName = target.dataset.targetName;
-      const panelRows = document.querySelectorAll(".scanner-panel .scanner-row span:last-child");
 
       target.addEventListener("mouseenter", () => {
         document.querySelectorAll(".scanner-target").forEach((item) => item.classList.remove("is-active"));
         target.classList.add("is-active");
-        if (panelRows[1]) panelRows[1].textContent = sectionName.toLowerCase();
-        if (panelRows[2]) panelRows[2].textContent = "locked";
+        updateScannerPanel(sectionId, "locked");
       });
 
       target.addEventListener("mouseleave", () => {
         target.classList.remove("is-active");
-        if (panelRows[1]) panelRows[1].textContent = "brand / ui";
-        if (panelRows[2]) panelRows[2].textContent = "tracking";
+        updateScannerPanel("default", "tracking");
       });
 
       target.addEventListener("click", () => {
@@ -1523,17 +1621,16 @@
 
         document.querySelectorAll(".scanner-target").forEach((item) => item.classList.remove("is-active"));
         target.classList.add("is-active");
-        if (panelRows[1]) panelRows[1].textContent = sectionName.toLowerCase();
-        if (panelRows[2]) panelRows[2].textContent = "jumping";
+        updateScannerPanel(sectionId, "jumping");
 
         gsap.to(window, {
           duration: 1.05,
           scrollTo: { y: targetSection, offsetY: 84 },
           ease: "power3.inOut",
           onComplete: () => {
-            if (panelRows[2]) panelRows[2].textContent = "arrived";
+            updateScannerPanel(sectionId, "arrived");
             setTimeout(() => {
-              if (panelRows[2]) panelRows[2].textContent = "tracking";
+              updateScannerPanel("default", "tracking");
               target.classList.remove("is-active");
             }, 1000);
           }
