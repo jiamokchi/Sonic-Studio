@@ -3,12 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>暖心窩案例研究 | 逸承工作室 Sonnie Studio</title>
-  <meta name="description" content="逸承工作室 Sonnie Studio 案例研究：暖心窩品牌網站，從服務定位、頁面架構到公開上線的完整建置過程。">
-  <meta property="og:title" content="暖心窩案例研究 | 逸承工作室 Sonnie Studio">
-  <meta property="og:description" content="品牌網站案例研究：從內容架構、案例展示到預約動線的完整規劃。">
-  <meta property="og:type" content="article">
-  <meta property="og:image" content="https://jiamokchi.github.io/warmth-house/kitchen_case.png">
+  <title>服務內容 | 逸承工作室 Sonnie Studio</title>
+  <meta name="description" content="逸承工作室 Sonnie Studio 的服務內容：品牌網站、展示頁、未來模組與後續擴充方向。">
+  <meta property="og:title" content="服務內容 | 逸承工作室 Sonnie Studio">
+  <meta property="og:description" content="聚焦品牌網站、展示頁與可延伸的未來模組建置。">
+  <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_TW">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +15,7 @@
   <style>
     :root {
       --bg: #050816;
-      --panel: rgba(8, 16, 36, 0.8);
+      --panel: rgba(8, 16, 36, 0.82);
       --panel-strong: rgba(9, 18, 40, 0.96);
       --line: rgba(127, 209, 255, 0.16);
       --line-soft: rgba(255, 255, 255, 0.08);
@@ -37,8 +36,8 @@
       color: var(--text);
       font-family: "Noto Sans TC", sans-serif;
       background:
-        radial-gradient(circle at 12% 18%, rgba(121, 231, 255, 0.12), transparent 22%),
-        radial-gradient(circle at 85% 10%, rgba(122, 125, 255, 0.16), transparent 20%),
+        radial-gradient(circle at 12% 18%, rgba(121,231,255,0.12), transparent 22%),
+        radial-gradient(circle at 85% 10%, rgba(122,125,255,0.16), transparent 20%),
         linear-gradient(180deg, #050816 0%, #071020 42%, #040712 100%);
       min-height: 100vh;
     }
@@ -55,7 +54,6 @@
       mask-image: linear-gradient(180deg, rgba(0,0,0,0.88), transparent 82%);
     }
     a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
     h1, h2, h3, p { margin: 0; }
     .wrap { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
     .nav {
@@ -155,7 +153,7 @@
       border: 1px solid transparent;
       transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
     }
-    .menu a:hover {
+    .menu a:hover, .menu a.active {
       color: var(--text);
       border-color: rgba(121,231,255,0.12);
       background: rgba(121,231,255,0.06);
@@ -227,7 +225,7 @@
     .hero { padding: 72px 0 26px; }
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
+      grid-template-columns: 1.06fr 0.94fr;
       gap: 24px;
       align-items: stretch;
     }
@@ -246,11 +244,17 @@
       pointer-events: none;
       background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent 36%);
     }
-    .hero-copy { padding: 38px; display: flex; flex-direction: column; justify-content: space-between; min-height: 580px; }
+    .hero-copy {
+      padding: 38px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 560px;
+    }
     .hero-title {
       margin-top: 18px;
       font-family: "Orbitron", "Noto Sans TC", sans-serif;
-      font-size: clamp(34px, 6vw, 68px);
+      font-size: clamp(34px, 6vw, 70px);
       line-height: 0.98;
       letter-spacing: -0.04em;
       max-width: 10ch;
@@ -292,27 +296,32 @@
       font-size: 22px;
       font-family: "Orbitron", sans-serif;
     }
-    .visual-stack {
-      display: grid;
-      grid-template-rows: 1fr 0.72fr;
-      gap: 18px;
-      padding: 18px;
+    .visual-panel {
+      padding: 20px;
       background:
         radial-gradient(circle at top right, rgba(121,231,255,0.15), transparent 24%),
         linear-gradient(180deg, rgba(7, 14, 30, 0.98), rgba(8, 16, 35, 0.98));
     }
-    .shot {
-      overflow: hidden;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,0.08);
-      min-height: 260px;
-      background: var(--panel-strong);
-    }
-    .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-    .mini-grid {
+    .visual-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+      gap: 14px;
+      height: 100%;
+    }
+    .visual-box {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      min-height: 130px;
+    }
+    .visual-box strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: "Orbitron", sans-serif;
     }
     .section { padding: 24px 0 0; }
     .section-head {
@@ -329,8 +338,8 @@
       letter-spacing: -0.04em;
     }
     .section-head p { max-width: 560px; color: var(--muted); line-height: 1.8; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
     .card {
       padding: 28px;
       border-radius: var(--radius-lg);
@@ -365,15 +374,13 @@
     .footer { padding: 44px 0 64px; color: var(--muted); font-size: 14px; }
     @media (max-width: 1080px) {
       .hero-grid, .grid-2, .grid-3 { grid-template-columns: 1fr; }
-      .visual-stack { grid-template-rows: auto; }
     }
     @media (max-width: 760px) {
       .wrap { width: min(calc(100% - 28px), var(--max)); }
-      .menu { display: none; }
-      .hero-copy, .visual-stack, .card, .cta-panel { padding: 24px; }
-      .metrics { grid-template-columns: 1fr; }
-      .mini-grid { grid-template-columns: 1fr; }
+      .menu, .nav-status { display: none; }
+      .hero-copy, .visual-panel, .card, .cta-panel { padding: 24px; }
       .hero-copy { min-height: auto; }
+      .metrics { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -389,12 +396,12 @@
       </a>
       <div class="nav-actions">
         <div class="menu">
-          <a href="services.html">服務</a>
-          <a class="active" href="case-study.html">案例</a>
-          <a href="index.html#vision">願景</a>
+          <a href="index.html#services">首頁服務</a>
+          <a href="case-study.html">案例</a>
+          <a class="active" href="services.html">服務頁</a>
           <a href="index.html#contact">聯絡</a>
         </div>
-        <div class="nav-status">案例模式</div>
+        <div class="nav-status">服務模式</div>
       </div>
       <a class="button ghost" href="index.html">回首頁</a>
     </div>
@@ -405,46 +412,47 @@
       <div class="wrap hero-grid">
         <article class="panel hero-copy">
           <div>
-            <div class="eyebrow">案例研究</div>
-            <h1 class="hero-title">暖心窩 <span>已上線案例</span></h1>
-            <p>這是一個已正式上線的品牌網站案例。目標不是只做一張首頁，而是建立完整的品牌入口，讓訪客能理解服務、看到案例、建立信任，最後進入預約流程。</p>
+            <div class="eyebrow">服務內容</div>
+            <h1 class="hero-title">把服務講清楚，才會更容易成交</h1>
+            <p>逸承工作室目前的服務很聚焦，不追求一次做很多，而是先把最能建立信任、最能快速上線、最能往未來延伸的內容做好。</p>
             <div class="tag-row">
               <span class="tag">品牌網站</span>
-              <span class="tag">多頁架構</span>
-              <span class="tag">正式上線</span>
+              <span class="tag">展示頁</span>
+              <span class="tag">未來模組</span>
             </div>
             <div class="hero-actions">
-              <a class="button primary" href="https://jiamokchi.github.io/warmth-house/About.html" target="_blank" rel="noreferrer">開啟案例網站</a>
-              <a class="button ghost" href="index.html">回首頁</a>
+              <a class="button primary" href="case-study.html">查看案例</a>
+              <a class="button ghost" href="index.html#contact">前往聯絡</a>
             </div>
             <div class="metrics">
               <div class="metric">
                 <strong>01</strong>
-                完整品牌頁面架構，不只單頁展示。
+                先建立品牌感與辨識度。
               </div>
               <div class="metric">
                 <strong>02</strong>
-                已公開上線，可直接作為作品證明。
+                用 AI 程式開發加快產出與調整。
               </div>
               <div class="metric">
                 <strong>03</strong>
-                可延伸更多案例、內容與預約模組。
+                為未來內容與商業模組預留空間。
               </div>
             </div>
           </div>
         </article>
-        <article class="panel visual-stack">
-          <div class="shot">
-            <img src="https://jiamokchi.github.io/warmth-house/kitchen_case.png" alt="暖心窩首頁預覽">
-          </div>
-          <div class="mini-grid">
-            <div class="shot">
-              <img src="https://jiamokchi.github.io/warmth-house/wardrobe_case.png" alt="暖心窩衣櫃案例">
+        <article class="panel visual-panel">
+          <div class="visual-grid">
+            <div class="visual-box">
+              <strong>核心定位</strong>
+              不是做一堆包山包海服務，而是把現階段最有價值、最能累積品牌的幾項內容做強。
             </div>
-            <div class="card">
-              <div class="eyebrow">案例摘要</div>
-              <h3>從溫暖品牌感出發</h3>
-              <p>頁面語氣偏柔和信任感，但整體資訊結構相當完整，適合當作工作室現階段最有說服力的上線案例。</p>
+            <div class="visual-box">
+              <strong>服務邏輯</strong>
+              先做工作室官網與作品說服力，再往內容平台與商業模組擴張。
+            </div>
+            <div class="visual-box">
+              <strong>未來擴充</strong>
+              科技內容、遊戲專區、3C 商業入口都會以現在這套結構為基底延伸。
             </div>
           </div>
         </article>
@@ -455,59 +463,28 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <div class="eyebrow">專案目標</div>
-            <h2>這個案例要解決什麼</h2>
+            <div class="eyebrow">Service 01</div>
+            <h2>品牌網站</h2>
           </div>
-          <p>對服務型品牌來說，真正的問題不是沒有網站，而是網站無法幫忙建立信任、說明服務與承接詢問。</p>
-        </div>
-        <div class="grid-3">
-          <article class="card">
-            <div class="step-no">問題 01</div>
-            <h3>品牌定位要清楚</h3>
-            <p>訪客進站後要快速理解這是什麼服務、適合誰，以及品牌的差異點在哪裡。</p>
-          </article>
-          <article class="card">
-            <div class="step-no">問題 02</div>
-            <h3>服務需要被看懂</h3>
-            <p>只靠簡單介紹不夠，必須把服務場景、常見問題與動線整理完整。</p>
-          </article>
-          <article class="card">
-            <div class="step-no">問題 03</div>
-            <h3>最後要能承接預約</h3>
-            <p>網站不只要美觀，更要把訪客帶到實際可行動的預約或詢問入口。</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">建置範圍</div>
-            <h2>實際做了哪些內容</h2>
-          </div>
-          <p>這個案例的價值在於，它不是只有畫面，而是把品牌網站該有的骨架一起搭起來。</p>
+          <p>最適合工作室、個人品牌、小型團隊，重點是先把品牌感、服務理解度與信任感站穩。</p>
         </div>
         <div class="grid-2">
           <article class="card">
-            <h3>頁面架構</h3>
+            <h3>適合誰</h3>
             <ul>
-              <li>首頁主視覺與品牌定位</li>
-              <li>服務項目整理</li>
-              <li>案例列表與案例細節</li>
-              <li>FAQ 與品牌故事</li>
-              <li>預約與聯絡流程</li>
+              <li>剛起步但想要有正式品牌入口的人</li>
+              <li>已有作品，但網站看起來還不夠完整的人</li>
+              <li>需要工作室形象、案例與聯絡入口的人</li>
             </ul>
           </article>
           <article class="card">
-            <h3>技術與部署</h3>
+            <h3>通常會做的內容</h3>
             <ul>
-              <li>靜態 HTML</li>
-              <li>Tailwind CSS 內容傳遞網路</li>
-              <li>GitHub Pages 部署</li>
-              <li>可延伸管理與資料流程</li>
-              <li>支援後續內容增加</li>
+              <li>首頁定位與主視覺</li>
+              <li>服務介紹</li>
+              <li>案例頁</li>
+              <li>品牌故事 / 關於頁</li>
+              <li>聯絡入口</li>
             </ul>
           </article>
         </div>
@@ -518,26 +495,58 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <div class="eyebrow">價值說明</div>
-            <h2>這個案例對逸承工作室代表什麼</h2>
+            <div class="eyebrow">Service 02</div>
+            <h2>展示頁</h2>
           </div>
-          <p>它是現階段最好的能力證明，因為它已經從概念、內容、頁面到部署形成完整鏈條。</p>
+          <p>適合需要快速推出活動頁、單一主題頁或新產品展示的人，重點是速度與畫面記憶點。</p>
         </div>
         <div class="grid-3">
           <article class="card">
-            <div class="step-no">價值 01</div>
-            <h3>能做完整官網</h3>
-            <p>代表不是只會切一張首頁，而是能處理多頁結構與品牌訊息配置。</p>
+            <div class="step-no">場景 01</div>
+            <h3>活動頁</h3>
+            <p>用於主題活動、展覽、社群導流或短期曝光。</p>
           </article>
           <article class="card">
-            <div class="step-no">價值 02</div>
-            <h3>能讓內容可被理解</h3>
-            <p>服務型網站最難的是把抽象服務講清楚，這個案例已經做到一部分。</p>
+            <div class="step-no">場景 02</div>
+            <h3>產品頁</h3>
+            <p>適合新產品或單一服務介紹，快速把重點聚焦在一個頁面。</p>
           </article>
           <article class="card">
-            <div class="step-no">價值 03</div>
-            <h3>能正式上線</h3>
-            <p>從工作區到 GitHub Pages 的上線能力已驗證，這對新工作室非常重要。</p>
+            <div class="step-no">場景 03</div>
+            <h3>概念頁</h3>
+            <p>適合想先測試視覺方向與市場反應，再決定後續要不要做完整網站。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Service 03</div>
+            <h2>未來模組</h2>
+          </div>
+          <p>這是逸承工作室之後最重要的差異化方向，網站不只停在畫面，而是逐步走向可運作的內容與互動系統。</p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>現階段可以預留的方向</h3>
+            <ul>
+              <li>內容分類入口</li>
+              <li>遊戲感控制台模組</li>
+              <li>科技新知列表</li>
+              <li>3C 產品卡與導購區</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>未來可以往哪裡走</h3>
+            <ul>
+              <li>科技內容平台</li>
+              <li>遊戲專區與主題頁</li>
+              <li>商城或導購模組</li>
+              <li>更完整的搜尋、分類與後台</li>
+            </ul>
           </article>
         </div>
       </div>
@@ -546,12 +555,12 @@
     <section class="section">
       <div class="wrap">
         <article class="cta-panel">
-          <div class="eyebrow">下一步</div>
-          <h2 style="margin-top: 16px; font-size: clamp(28px, 4vw, 46px); line-height: 1.05; letter-spacing: -0.04em;">下一步要把這種完成度，從案例延伸到你自己的工作室官網</h2>
-          <p style="margin-top: 18px; color: #c8d4ea; line-height: 1.9; max-width: 720px;">這個案例頁建立之後，網站就不再只有酷首頁，而是開始擁有真正的信任內容。接下來最值得做的是正式服務頁與真實聯絡入口。</p>
+          <div class="eyebrow">合作節奏</div>
+          <h2 style="margin-top: 16px; font-size: clamp(28px, 4vw, 46px); line-height: 1.05; letter-spacing: -0.04em;">最好的方式不是一次做很多，而是先把最值錢的頁面做對</h2>
+          <p style="margin-top: 18px; color: #c8d4ea; line-height: 1.9; max-width: 720px;">對現在的逸承工作室來說，最重要的是把首頁、案例頁、服務頁與聯絡入口慢慢做完整。等品牌站穩，再往科技平台與商城延伸，會更穩也更有節奏。</p>
           <div class="hero-actions">
-            <a class="button primary" href="index.html#contact">前往聯絡</a>
-            <a class="button ghost" href="index.html">回首頁</a>
+            <a class="button primary" href="case-study.html">先看案例</a>
+            <a class="button ghost" href="index.html#contact">前往聯絡</a>
           </div>
         </article>
       </div>
@@ -559,7 +568,7 @@
   </main>
 
   <footer class="footer">
-    <div class="wrap">Sonnie Studio / 暖心窩案例研究</div>
+    <div class="wrap">Sonnie Studio / 服務內容</div>
   </footer>
 </body>
 </html>
